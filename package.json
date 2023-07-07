@@ -1,0 +1,50 @@
+{
+  "name": "@rileyy29/react-mindmap",
+  "description": "A simple base framework package intended to assist developers/users with the creation and visualisation of MindMaps in React.",
+  "version": "1.0.1",
+  "main": "dist/bundle.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "semvar": "yarn version --patch",
+    "deploy": "yarn build && yarn semvar && yarn publish"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/bundle.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "react-draggable": ">=4.4.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.8",
+    "@babel/plugin-transform-react-jsx": "^7.22.5",
+    "@babel/plugin-transform-runtime": "^7.22.7",
+    "@babel/preset-env": "^7.22.7",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "rollup": "^3.26.2",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6"
+  }
+}

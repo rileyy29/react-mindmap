@@ -1,0 +1,1 @@
+A simple base framework package intended to assist developers/users with the creation and visualisation of MindMaps in React.
