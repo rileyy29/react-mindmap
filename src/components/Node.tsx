@@ -33,7 +33,7 @@ export interface NodeProps {
      * @param node 
      * @returns 
      */
-    renderNode: (node: Omit<NodeStructure, 'childNodes'>) => ReactNode | ReactElement | JSX.Element;
+    renderNode: (node: NodeStructure) => ReactNode | ReactElement | JSX.Element;
 
     /**
      * Specify a function to be invoked when the node is dragged.
@@ -76,10 +76,15 @@ export default memo(function Node({
 
     return (
         <Fragment>
-            <Draggable bounds={"parent"} disabled={isDraggable === false} position={{ x: node.x, y: node.y }} onDrag={handleDragEvent}>
-                <div style={{ zIndex: 50, position: "absolute", width: node.width, height: node.height, backgroundColor: "lightgray", cursor: "pointer" }} className={nodeClassName}>
-                    {renderNode(node)}
-                </div>
+            <Draggable
+                bounds={"parent"}
+                disabled={isDraggable === false}
+                defaultClassName={"node-draggable"}
+                defaultClassNameDragged={"node-dragged"}
+                defaultClassNameDragging={"node-dragging"}
+                position={{ x: node.x, y: node.y }}
+                onDrag={handleDragEvent}>
+                <div style={{ zIndex: 50, position: "absolute", width: node.width, height: node.height, backgroundColor: "lightgray", cursor: "pointer" }} className={nodeClassName}>{renderNode(node)}</div>
             </Draggable>
             {!node.childNodes ? null :
                 node.childNodes.map((childNode) => <Node key={childNode.id} node={childNode} nodeClassName={nodeClassName} renderNode={renderNode} onDrag={onDrag} draggable={draggable} />)}
