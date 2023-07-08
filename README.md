@@ -214,13 +214,47 @@ export default function Example() {
 
     return <Mindmap draggable={true} renderNode={(node) => <div>{node.node.title}</div>} nodes={nodes} onNodesChange={setNodes} />
 }
+```
+### Dynamic Nodes (Circular Locations)
+This example shows how to dynamically generate nodes around a center node based on a circular axis with dragging disabled. By default, a connecting line will be rendered between the nodes. All styling can be customised with the `renderNode` prop or the `line` prop. 
 
+This is using the Mindmap in an uncontrolled state therefore all state is managed within the component itself.
+
+```tsx
+import { Mindmap, type NodeStructure } from "@rileyy29/react-mindmap";
+import { useMemo } from "react";
+
+function getDynamicLocations(centerX: number, centerY: number) {
+    const angle = Math.random() * Math.PI * 2, radius = 250;
+    const offsetX = Math.cos(angle) * radius;
+    const offsetY = Math.sin(angle) * radius;
+
+    const x = centerX + offsetX;
+    const y = centerY + offsetY;
+
+    return { x, y };
+}
+
+export default function Example() {
+    const nodes = useMemo(() => {
+        const centerX = 300, centerY = 300;
+        const rootNodes: NodeStructure = { id: 0, x: centerX, y: centerY, width: 200, height: 100, type: "ROOT", node: { title: "Root" }, childNodes: [] };
+
+        Array(5).fill({ width: 150, height: 50, type: "CHILD", node: { title: "Child" } }).map((item: NodeStructure, index) => {
+            const { x, y } = getDynamicLocations(centerX, centerY);
+            rootNodes.childNodes.push({ ...item, id: index, x, y });
+        });
+
+        return [rootNodes];
+    }, []);
+
+    return <Mindmap draggable={false} renderNode={(node) => <div>{node.node.title}</div>} defaultNodes={nodes} />
+}
 ```
 
 ## Screenshots
 
 ![Nodes Screenshot](https://github.com/rileyy29/react-mindmap/assets/68727407/f1479b95-7e49-4652-bc94-cd819cda3f2b)
-
 
 ## License
 
