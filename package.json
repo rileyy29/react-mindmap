@@ -1,7 +1,7 @@
 {
   "name": "@rileyy29/react-mindmap",
   "description": "A simple base framework package intended to assist developers/users with the creation and visualisation of MindMaps in React.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/bundle.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
