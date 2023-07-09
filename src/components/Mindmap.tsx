@@ -1,4 +1,4 @@
-import { SVGProps, useMemo } from "react";
+import { SVGProps, forwardRef, useMemo } from "react";
 import { useControllableState } from "../hooks/useControllableState";
 import { NodeStructure } from "../types";
 import { calculatePath, getFullSize, updateNode } from "../util";
@@ -33,14 +33,14 @@ export interface MindmapProps extends Omit<NodeProps, 'node' | 'onDrag'> {
     noLine?: boolean;
 }
 
-export default function Mindmap({
+export default forwardRef<HTMLDivElement, MindmapProps>(function Mindmap({
     defaultNodes: defaultValue,
     nodes: value,
     onNodesChange,
     line: pathProps,
     noLine,
     ...nodeProps
-}: MindmapProps) {
+}: MindmapProps, ref) {
     const [nodes, setNodes] = useControllableState<NodeStructure[]>({
         value,
         defaultValue,
@@ -64,9 +64,9 @@ export default function Mindmap({
     }
 
     return (
-        <div style={getFullSize()}>
+        <div ref={ref} style={getFullSize()}>
             {noLine ? null : <svg style={{ ...getFullSize(), zIndex: 25 }}><path d={path} stroke={"black"} strokeWidth={2} fill={"transparent"} {...pathProps} /></svg>}
             {!nodes ? null : nodes.map((node) => <Node key={node.id} node={node} onDrag={onNodeDrag} {...nodeProps} />)}
         </div>
     )
-}
+});
