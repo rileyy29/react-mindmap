@@ -84,7 +84,7 @@ export default memo(function Node({
                 defaultClassNameDragging={"node-dragging"}
                 position={{ x: node.x, y: node.y }}
                 onDrag={handleDragEvent}>
-                <div style={{ zIndex: 50, position: "absolute", width: node.width, height: node.height, backgroundColor: "lightgray", cursor: "pointer" }} className={nodeClassName}>{renderNode(node)}</div>
+                <div style={{ zIndex: 50, position: "absolute", width: node.width, height: node.height, backgroundColor: "transparent", cursor: "pointer" }} className={nodeClassName}>{renderNode(node)}</div>
             </Draggable>
             {!node.childNodes ? null :
                 node.childNodes.map((childNode) => <Node key={childNode.id} node={childNode} nodeClassName={nodeClassName} renderNode={renderNode} onDrag={onDrag} draggable={draggable} />)}
